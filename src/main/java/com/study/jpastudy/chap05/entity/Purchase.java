@@ -8,7 +8,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@ToString(exclude = {"user", "good"})
+@ToString(exclude = {"user", "goods"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,5 +27,5 @@ public class Purchase {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goods_id")
-    private Goods good;
+    private Goods goods;
 }
