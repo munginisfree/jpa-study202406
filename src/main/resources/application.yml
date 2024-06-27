@@ -9,14 +9,14 @@ spring:
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-    #DBMS dialect setting
+    # DBMS dialect setting
     database-platform: org.hibernate.dialect.MariaDB106Dialect
     hibernate:
-      # ddl ??? ??? ??? ?
-      ddl-auto: create
+      # ddl ??? ??? ????...
+      ddl-auto: update
     properties:
       hibernate:
-        format_sql: true #SQL ?? ??? ??? ??
+        format_sql: true # SQL ?? ??? ??? ??
     database: mysql
 
 # log level setting
@@ -24,7 +24,7 @@ logging:
   level:
     root: info
     com:
-      spring:
+      study:
         jpastudy: debug
     org:
       hibernate:
