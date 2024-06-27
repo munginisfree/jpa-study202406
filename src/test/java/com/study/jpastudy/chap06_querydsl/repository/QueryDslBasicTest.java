@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+import java.util.Optional;
+
 import static com.study.jpastudy.chap06_querydsl.entity.QIdol.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -90,5 +93,47 @@ class QueryDslBasicTest {
         System.out.println("foundIdol = " + foundIdol);
         System.out.println("foundIdol.getGroup() = " + foundIdol.getGroup());
         System.out.println("\n\n\n\n");
+    }
+
+    @Test
+    @DisplayName("이름과 나이로 아이돌 조회하기")
+    void searchTest() {
+        //given
+        String name = "리즈";
+        int age = 20;
+        //when
+        Idol idol1 = factory
+                .select(idol)
+                .from(idol)
+                .where(idol.idolName.eq(name)
+                        .and(idol.age.eq(age)))
+                .fetchOne();
+        //then
+        assertEquals("아이브", idol1.getGroup().getGroupName());
+    }
+
+    @Test
+    @DisplayName("조회 결과 반환하기")
+    void fetchTest() {
+        // 리스트 조회
+        List<Idol> idolList = factory
+                .select(idol)
+                .from(idol)
+                .fetch();
+        System.out.println("\n\n=========================================");
+        System.out.println("idolList = " + idolList);
+        System.out.println("=========================================\n\n");
+
+        // 단건 조회시 null safety를 위한 Optional로 받고 싶을 때
+        Optional<Idol> foundIdolOptional = Optional.ofNullable(factory
+                .select(QIdol.idol)
+                .from(QIdol.idol)
+                .where(QIdol.idol.age.lt(21))
+                .fetchOne());
+
+        Idol idol2 = foundIdolOptional.orElseThrow();
+        System.out.println("\n\n=========================================");
+        System.out.println("idol = " + idol2);
+        System.out.println("=========================================\n\n");
     }
 }
