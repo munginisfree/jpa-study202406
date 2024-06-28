@@ -136,4 +136,64 @@ class QueryDslBasicTest {
         System.out.println("idol = " + idol2);
         System.out.println("=========================================\n\n");
     }
+
+    @Test
+    @DisplayName("나이가 24세 이상인 아이돌 조회")
+    void overTwoFour() {
+
+        // 리스트 조회
+        List<Idol> idolList = factory
+                .select(idol)
+                .from(idol)
+                .where(idol.age.gt(24))
+                        .fetch();
+        System.out.println("\n\n=========================================");
+        System.out.println("idolList = " + idolList);
+        System.out.println("=========================================\n\n");
+    }
+
+
+    @Test
+    @DisplayName("이름에 김이 들어간 사람 조회")
+    void kimTest() {
+        // 리스트 조회
+        List<Idol> idolList = factory
+                .select(idol)
+                .from(idol)
+                .where(idol.idolName.contains("김"))
+                .fetch();
+        System.out.println("\n\n=========================================");
+        System.out.println("idolList = " + idolList);
+        System.out.println("=========================================\n\n");
+    }
+
+
+    @Test
+    @DisplayName("20세 25세 사이인 아이돌")
+    void betweenTest() {
+        // 리스트 조회
+        List<Idol> idolList = factory
+                .select(idol)
+                .from(idol)
+                .where(idol.age.between(20, 25))
+                .fetch();
+        System.out.println("\n\n=========================================");
+        System.out.println("idolList = " + idolList);
+        System.out.println("=========================================\n\n");
+    }
+
+
+    @Test
+    @DisplayName("그룹 이름이 르세라핌인 아이돌 조회")
+    void groupNameTest() {
+        // 리스트 조회
+        List<Idol> idolList = factory
+                .select(idol)
+                .from(idol)
+                .where(idol.group.groupName.eq("르세라핌"))
+                .fetch();
+        System.out.println("\n\n=========================================");
+        System.out.println("idolList = " + idolList);
+        System.out.println("=========================================\n\n");
+    }
 }
